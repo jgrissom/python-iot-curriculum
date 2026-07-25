@@ -42,7 +42,7 @@ Three wires:
 
 ## 3 — Test the new parts
 
-Run [`code/new_parts_test.py`](../code/new_parts_test.py). Expected show, in order:
+Download [`code/new_parts_test.py`](../code/new_parts_test.py), open it in Thonny, plug the board back in, and press **Run**. (Nothing to upload — this one just runs from the editor.) Expected show, in order:
 
 1. **Piezo, driven the old way** (`on()`/`off()`) — three soft **clicks**. Not beeps. *Clicks.* If you hear real beeps, the active buzzer is still in the breadboard.
 2. **Piezo, driven with PWM** — a smooth rising tone, like a tiny spaceship taking off.
