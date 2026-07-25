@@ -75,9 +75,37 @@ finally:
 ```
 
 > [!TIP]
-> **Do this:** run it. Two LEDs breathing at different tempos, each a coroutine, ~50 gentle updates a second — and the CPU is nearly idle, because the PWM hardware does the thousand-times-a-second part. Software picks the brightness; hardware holds it. Then try replacing `level * level` with `level * 256` (linear) on one LED: it slams to near-full brightness early in the inhale and hangs there. The squared version is the one that looks alive.
+> **Do this:** run it. Two LEDs breathing at different tempos, each a coroutine, ~50 gentle updates a second — and the CPU is nearly idle, because the PWM hardware does the thousand-times-a-second part. Software picks the brightness; hardware holds it.
 
-This coroutine is almost exactly the assignment's breathing wait beacon — remember where you left it.
+### A2.1 — see the gamma for yourself
+
+Was squaring the level really necessary? Prove it — race the two curves side by side. One coroutine can serve both if the curve becomes a parameter (and keep both tempos the **same**, so the only difference you see is the curve):
+
+```python
+async def breathe(led, step_s, gamma=True):
+    """gamma=True: perceptually smooth. gamma=False: mathematically linear."""
+    while True:
+        for level in range(0, 256, 5):
+            led.duty_u16(level * level if gamma else level * 256)
+            await asyncio.sleep(step_s)
+        for level in range(255, -1, -5):
+            led.duty_u16(level * level if gamma else level * 256)
+            await asyncio.sleep(step_s)
+
+
+async def main():
+    asyncio.create_task(breathe(led1, 0.02))                # squared (gamma)
+    asyncio.create_task(breathe(led2, 0.02, gamma=False))   # linear
+    while True:
+        await asyncio.sleep(1)
+```
+
+> [!TIP]
+> **Do this:** run it and just watch for a few breaths. Both LEDs get the *same* levels at the *same* moments — but the linear one slams to near-full brightness early in the inhale and hangs there, while the squared one keeps visibly swelling the whole way up and settles gently on the way down. Same numbers, different curve, completely different feel: your eye is logarithmic, so the code must be exponential-ish to compensate. The squared version is the one that looks alive.
+>
+> (Fine print: `level * 256` tops out at 65280, not 65535 — invisible in practice, and a nice reminder that "close enough for the eye" is a legitimate engineering spec.)
+
+This coroutine — the `gamma=True` one — is almost exactly the assignment's breathing wait beacon; remember where you left it.
 
 ## A3 — the other knob (frequency)
 
