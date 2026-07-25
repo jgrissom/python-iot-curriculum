@@ -98,6 +98,42 @@ asyncio.run(main())
 > [!TIP]
 > **Do this:** run it, then make it yours — colors, `laps`, `tail`, the frame delay. Then the connoisseur's test: add a breathing-LED task to `main()` (you have the coroutine from Part A) and confirm comet and breath run together without a hiccup. Sixteen frames a second of light show costs the scheduler almost nothing — these are *polite* animations, `await`ing between every frame.
 
+<details>
+<summary>Answer</summary>
+
+Three additions: the PWM import and LED setup, Part A's coroutine pasted in unchanged, and one `create_task()` line in `main()`:
+
+```python
+from machine import Pin, PWM                     # PWM is new here
+
+led1 = PWM(Pin(26), freq=1000, duty_u16=0)       # red LED, Part A style
+
+
+async def breathe(led, step_s=0.02):             # straight from Part A
+    while True:
+        for level in range(0, 256, 5):
+            led.duty_u16(level * level)
+            await asyncio.sleep(step_s)
+        for level in range(255, -1, -5):
+            led.duty_u16(level * level)
+            await asyncio.sleep(step_s)
+
+
+async def main():
+    asyncio.create_task(breathe(led1))           # runs underneath everything
+    await strip_comet((0, 0, 60))
+    await strip_flash((60, 40, 0), times=2)
+    await strip_comet((60, 0, 0), laps=2, tail=5)
+
+asyncio.run(main())
+led1.duty_u16(0)                                 # leave the pin clean
+led1.deinit()
+```
+
+Note the shape: the breath is `create_task()` (it should run *underneath* the whole show), while the strip effects are `await`ed in sequence (a playlist is sequential on purpose). Choosing per-effect between those two is the exact skill the assignment grades.
+
+</details>
+
 One style note before you invent your own effects: animation code grows index arithmetic and conditionals *fast*. The comet stays readable because each frame is computed in named steps — `head` first, then a plain `if i >= 0` guard for the tail. When an effect of yours turns into line-noise, simplify the motion, not the syntax.
 
 ## Discussion (5 min)
