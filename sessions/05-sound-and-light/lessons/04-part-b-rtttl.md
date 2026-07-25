@@ -312,6 +312,9 @@ Finale: music on demand, from the buttons — and your first `task.cancel()`.
 
 8. **Run it and DJ for a while.** Press A mid-song — the old song stops *instantly*, the new one starts, the LED never misses a breath. That's the whole show-business API: `create_task()` starts a performance without waiting for it, `cancel()` pulls the performer off stage, and `finally` makes sure they don't leave a note stuck on behind them. The assignment is exactly these three moves wearing a game costume.
 
+> [!NOTE]
+> **Want more records?** The internet never stopped hosting these. The [PICAXE RTTTL archive](https://picaxe.com/rtttl-ringtones-for-tune-command/) has ~11,000 songs as plain text; [this searchable archive](https://ringtone.vulc.in/) lets you hunt by title and preview; and the timeless move is just searching `RTTTL` plus a song name. Paste any string into your `songs.py`-style constant and the jukebox plays it. One rule: what you paste onto *your* bench is your business — but our public `songs.py` stays public-domain-only, for reasons the header comment explains.
+
 ## Discussion (5 min)
 
 **Q1. Your game's victory fanfare: `await rtttl.play(...)` or `asyncio.create_task(rtttl.play(...))`? And when would the `await` version be the right call?**
