@@ -58,13 +58,19 @@ def note_freq(pitch, octave):
 The `- 9` is because `a` sits 9 semitones above `c` in our table, and we're anchoring on `a`, not `c`.
 
 > [!TIP]
-> **Do this:** sanity-check it against notes you can verify:
-> ```python
-> note_freq("a", 4)     # 440 -- the anchor, by construction
-> note_freq("a", 5)     # 880 -- one octave = exactly double
-> note_freq("c", 5)     # 523 -- soprano C
-> note_freq("c#", 5)    # 554 -- one semitone up, x1.0595
+> **Do this:** press **Run** on your file. The shell stays quiet — running it only *defines* the function (and no `import` is needed: Run executes the file straight into the shell's namespace, as if you'd typed it all at the `>>>`). Now interrogate it at the prompt, one line at a time — the REPL echoes each result, and these are the numbers you should see:
 > ```
+> >>> note_freq("a", 4)
+> 440
+> >>> note_freq("a", 5)
+> 880
+> >>> note_freq("c", 5)
+> 523
+> >>> note_freq("c#", 5)
+> 554
+> ```
+> The anchor by construction; one octave = exactly double; soprano C; and one semitone above it, ×1.0595. (Later, once the finished file is uploaded to the board as a library, other programs will reach the same function as `rtttl.note_freq(...)` — `import` is for libraries; Run is for the file you're building.)
+>
 > Twelve dictionary entries and one line of math generate the entire piano. When a formula replaces a table of 88 magic numbers, you've found the structure underneath.
 
 ## B3 — the parser
