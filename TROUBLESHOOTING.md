@@ -46,7 +46,7 @@ The helper library isn't on the board. Follow the upload steps in [Part C](sessi
 
 ### The board runs an old program every time it powers on, and I can't get a prompt
 
-You (or a previous student) saved a program as **`main.py` on the device** — MicroPython auto-runs it at boot. Connect, press Ctrl+C repeatedly during/after plugging in until you get `>>>`, then delete or rename `main.py` via View → Files. In this course, save work under any other name (e.g. `reaction_game_yourname.py`) and use the Run button instead.
+You (or a previous student) saved a program as **`main.py` on the device** — MicroPython auto-runs it at boot. Connect, press Ctrl+C repeatedly during/after plugging in until you get `>>>`, then delete or rename `main.py` via View → Files. In Sessions 3–5, save work under any other name (e.g. `reaction_game_yourname.py`) and use the Run button instead. **Session 6 breaks this rule on purpose** — deploying as `main.py` is how the capstone ships — and its [Part B](sessions/06-capstone/lessons/03-part-b-ship-it.md) teaches exactly this recovery ritual *before* the deploy.
 
 ### Thonny says "Backend not responding"
 
@@ -164,6 +164,36 @@ Brownout: the strip pulled more current than the 3.3 V regulator could give. Alm
 ### The first pixel flickers or glitches while the rest behave
 
 The stick is powered from 5 V somewhere (so 3.3 V data is marginal — pixel 1 takes the brunt, cleans up the signal, and the rest behave). Power the stick from **3V3** as the setup page wires it and the problem disappears.
+
+---
+
+## The vibration rig (Session 6)
+
+### The motor does nothing at all
+
+Work backwards along the current's path:
+
+- **Transistor legs.** Flat face toward you, legs down: **E–B–C** left to right for the course's 2N2222A parts. Swapped legs don't damage anything — they just silently do nothing. Re-seat it deliberately. (Using your own transistor? Some TO-92 "2N2222" variants — notably the P2N2222A — are **reversed, C-B-E**; check the printed part number against its datasheet.)
+- **Tug-test the screw terminal.** Hair-thin motor leads slip out of clamps that *look* closed. Gentle pull on each wire; if it moves, re-strip, twist, fold the end double, re-clamp.
+- **Base resistor actually reaching the base row?** No base current, no switch.
+- Test the driver without the code: at the REPL, `Pin(14, Pin.OUT).on()` — buzz means the rig is fine and the problem is the program; silence means wiring.
+
+### The motor got quieter over the evening (or cuts in and out)
+
+A vibration motor in a screw terminal is the textbook case of screws shaking loose. Re-snug both, tug-test again. Chronic loosener: a dab of hot glue over the clamped wires after tightening.
+
+### The motor runs but never turns off (or the transistor gets hot)
+
+- Never off: the flyback diode is probably in **backwards** — band must face the 3V3 side. Installed reversed it conducts whenever the motor runs (and it may now be cooked — replace it, they're pennies).
+- Hot transistor with weak rumble: base resistor far too large (1 kΩ is right for the course's 2N2222A; if you've substituted a 2N3904, its gain sags at this current — use ≤470 Ω), or the transistor is being asked to drive something bigger than a coin motor.
+
+### The motor buzzes the desk but you can't feel it in the board
+
+It's not stuck down. The adhesive ring must bond the motor to the breadboard (or bench) — a loose coin motor just dances. Stick it, tape the leads, retest.
+
+### One lead tore off the motor body
+
+The #1 coin-motor death. It's not repairable without soldering — swap in a spare from the kit bag, and this time tape the leads to the breadboard so the taped span takes the flexing.
 
 ---
 
