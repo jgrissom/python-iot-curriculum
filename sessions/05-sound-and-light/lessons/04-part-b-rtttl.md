@@ -91,6 +91,28 @@ Time to start building. Step by step:
 
 Twelve dictionary entries and one line of math generate the entire piano. When a formula replaces a table of 88 magic numbers, you've found the structure underneath.
 
+<details>
+<summary>Reference: the full grid <code>note_freq()</code> generates (Hz)</summary>
+
+| Note | Octave 4 | Octave 5 | Octave 6 | Octave 7 |
+|---|---:|---:|---:|---:|
+| c | 262 | 523 | 1047 | 2093 |
+| c# | 277 | 554 | 1109 | 2217 |
+| d | 294 | 587 | 1175 | 2349 |
+| d# | 311 | 622 | 1245 | 2489 |
+| e | 330 | 659 | 1319 | 2637 |
+| f | 349 | 698 | 1397 | 2794 |
+| f# | 370 | 740 | 1480 | 2960 |
+| g | 392 | 784 | 1568 | 3136 |
+| g# | 415 | 831 | 1661 | 3322 |
+| a | **440** | 880 | 1760 | 3520 |
+| a# | 466 | 932 | 1865 | 3729 |
+| b | 494 | 988 | 1976 | 3951 |
+
+Landmarks: `c4` is the piano's middle C · **`a4` = 440 Hz** is the anchor the whole grid hangs from · every column is exactly double the one before it · octave 7 (and the top of 6) sits in the piezo's loud 2–4 kHz resonance zone — transpose a song up an octave and it gets *louder*, not just higher. Handy when composing your own jingles for the assignment.
+
+</details>
+
 ## B3 — the parser
 
 Durations are the last piece of theory. At `b` beats per minute, one quarter note lasts `60000 / b` ms, so a whole note is four times that — and every note's length is `whole / duration` (×1.5 if dotted). The parser walks each token character by character: optional digits, then the pitch letter, then optional `#`, `.`, octave.
