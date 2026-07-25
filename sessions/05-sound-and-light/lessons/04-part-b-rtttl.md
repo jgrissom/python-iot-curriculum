@@ -77,7 +77,7 @@ The `- 9` is because `a` sits 9 semitones above `c` in our table, and we're anch
 
 Durations are the last piece. At `b` beats per minute, one quarter note lasts `60000 / b` ms, so a whole note is four times that — and every note's length is `whole / duration` (×1.5 if dotted). Now walk each token character by character: optional digits, then the pitch letter, then optional `#`, `.`, octave.
 
-Here's the full parser — a **generator** that yields one `(freq_hz, duration_ms)` pair per note, with `0` Hz meaning rest:
+Here's the full parser — a **generator** that yields one `(freq_hz, duration_ms)` pair per note, with `0` Hz meaning rest. It goes into the same file you've been building, right under `note_freq()`:
 
 ```python
 def parse(song):
@@ -132,7 +132,9 @@ def parse(song):
 > [!NOTE]
 > Why `yield` instead of building a list? A generator hands over one note at a time, as asked — no 60-note list sitting in RAM, and playback can be cancelled mid-song without having done the work of parsing the rest. On a microcontroller, "compute it when asked" is a habit worth building.
 
-The finished library — `note_freq`, `parse`, a `title()` helper, and the `play()` you're about to meet — is [`code/rtttl.py`](../code/rtttl.py). **Upload it to the board like a library** (Thonny → View → Files → right-click → *Upload to /*), same dance as `async_http.py` last session. Also upload [`code/songs.py`](../code/songs.py) — a starter songbook so nobody has to type Beethoven.
+Your editor file was the workshop — now swap in the certified copy. The repo's [`code/rtttl.py`](../code/rtttl.py) is the finished library: the `note_freq` and `parse` you just built, plus a small `title()` helper and the `play()` you're about to meet. **Upload the repo's copy to the board like a library** (Thonny → View → Files → right-click → *Upload to /*), same dance as `async_http.py` last session — from here on, every program says `import rtttl` and gets the known-good file. Also upload [`code/songs.py`](../code/songs.py) — a starter songbook so nobody has to type Beethoven.
+
+(Prefer to finish your own build? Add `title()` and B4's `play()` to your file and upload that instead — the code is identical. Just know the repo copy is the one the instructor can debug at a glance; thirteen hand-typed parsers means every symptom has two suspects.)
 
 ## B4 — play it (wrongly, then rightly)
 
