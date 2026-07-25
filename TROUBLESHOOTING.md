@@ -76,7 +76,7 @@ Stop/Restart button. If it persists: unplug the board, close Thonny, plug in, re
 
 ### The buzzer clicks weakly instead of beeping
 
-Passive piezo buzzers need a tone (PWM), not a steady on. The buzzers in this course are active (steady `on()` beeps). If yours only clicks, flag the instructor — you likely have a passive one from a different kit.
+Passive piezo buzzers need a tone (PWM), not a steady on. In Sessions 3–4 the bench buzzer is **active** (steady `on()` beeps) — if yours only clicks there, flag the instructor; you likely have a passive one from a different kit. **In Session 5 this flips:** the passive piezo is swapped in deliberately, clicking under plain `on()` is expected, and beeping under plain `on()` means the *active* buzzer is still in the breadboard.
 
 ### The DotStar rainbow stutters (Part C)
 
@@ -118,6 +118,52 @@ Socket leak — something isn't calling `r.close()` (blocking library) or is byp
 ### `ntptime.settime()` times out
 
 The network has no internet (or blocks NTP's port). Skip it — nothing in the session depends on the clock.
+
+---
+
+## Sound & light (Session 5)
+
+### `TypeError` mentioning `duty_u16` (or `PWM` has no such method)
+
+The board's MicroPython firmware predates the modern PWM API. Flag the instructor — the fix is a firmware update (the pre-class checklist verifies this, so it should be rare). Don't fall back to the legacy `duty(0..1023)` API; mixed duty scales in class create exactly the confusion the lesson avoids.
+
+### The piezo is silent under PWM
+
+- Is duty non-zero? `duty_u16(0)` **is** the "off switch" — a fresh `PWM(Pin(25), freq=440, duty_u16=0)` is configured but silent until you raise the duty (`32768` is the standard tone setting).
+- Did an earlier program leave the pin claimed? Ctrl+F2, then re-create the PWM.
+- Wiring: + leg → GPIO 25, – leg → GND — same holes the old buzzer used.
+- Still nothing at, say, `freq=1000`? Swap in a neighbor's piezo to split part-vs-code in one move.
+
+### The piezo plays, but it's *quiet*
+
+That's piezo life — no amplifier, and loudness varies a lot with frequency (they're loudest near resonance, typically 2–4 kHz; low notes are naturally faint). It is *not* a defect, and there's no volume knob — though dropping `duty_u16` well below 50% quiets it somewhat, which is the trick to know for polite testing in a room with 12 other benches.
+
+### A note gets "stuck on" (droning forever)
+
+Something stopped the program between `duty_u16(32768)` and the silence that was supposed to follow — a crash, Ctrl+C, or a cancelled task without a `finally`. Immediate silence: `PWM(Pin(25)).duty_u16(0)` at the REPL, or Ctrl+F2. The real fix is the lesson's pattern: tone cleanup lives in `try/finally`, so even a cancelled song shuts up on its way out.
+
+### The NeoPixel strip stays completely dark
+
+- **Direction:** data must enter at **DIN** — the arrows printed on the stick point *away* from it. Wired into DOUT, the strip ignores you silently. This is the #1 cause.
+- Did you call `np.write()`? Assignments to `np[i]` only edit a buffer in RAM — nothing shows until `write()`.
+- Wiring check: DIN → GPIO 4, VCC → 3V3, GND → the GND rail; and the pin number in `NeoPixel(Pin(4), NUM_PIXELS)` must actually be 4.
+- Colors dim-but-technically-lit can *look* dark under room lights — try `(60, 0, 0)` on all pixels before declaring death.
+
+### Animations stop partway down the strip (the far pixels never light)
+
+`NUM_PIXELS` is smaller than your actual stick — the far pixels are never sent data. Re-run the counting step in [`new_parts_test.py`](sessions/05-sound-and-light/code/new_parts_test.py) and set `NUM_PIXELS` to what it tells you, in *every* program you run tonight. (Too *big* is harmless — data for pixels that don't exist falls off the end — which is why the counting step can probe with 30.)
+
+### The strip shows the wrong colors (red and green swapped, or a white-ish 4th channel)
+
+Classic sign of an RGBW stick (four channels) driven as RGB, or a stick with a different channel order. Try `neopixel.NeoPixel(Pin(4), NUM_PIXELS, bpp=4)` and 4-tuples `(r, g, b, w)`; if it's channel order, flag the instructor — course kits are plain GRB WS2812 and the driver handles that order automatically, so a mismatch means a stray part.
+
+### The board resets/disconnects when the strip lights up
+
+Brownout: the strip pulled more current than the 3.3 V regulator could give. Almost always a brightness-cap violation — hunt for channel values above ~60 (the classic is a `(255, 255, 255)` "just to test"). Dim the code, Ctrl+F2, carry on. The [setup page](sessions/05-sound-and-light/lessons/02-setup.md) has the power math.
+
+### The first pixel flickers or glitches while the rest behave
+
+The stick is powered from 5 V somewhere (so 3.3 V data is marginal — pixel 1 takes the brunt, cleans up the signal, and the rest behave). Power the stick from **3V3** as the setup page wires it and the problem disappears.
 
 ---
 
