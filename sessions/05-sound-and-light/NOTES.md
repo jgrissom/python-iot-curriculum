@@ -23,7 +23,10 @@ self-contained; a second failure domain (venue Wi-Fi) would buy nothing and
 cost setup time. The whole session — assignment included — runs anywhere,
 including at home. (The Game-Show Edition grafts onto the *offline*
 Session 3 game, not Session 4's connected version, for the same reason;
-a stretch goal reconnects it for those who want both.) **Revisited and
+Session 6's capstone reconnects everything. The assignment's stretch
+goals were removed 2026-07-26 — Jeff's call — and folded into the
+capstone's extra-credit menu, where they have room to breathe; S5's
+45-minute window never really had space for them.) **Revisited and
 confirmed 2026-07-26:** Jeff considered switching the starter to the
 completed Session 4 game — he had no objection to publishing that
 solution, and the venue network was already tested — so the decisive

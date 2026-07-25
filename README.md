@@ -13,7 +13,7 @@ Each session is self-contained in its own folder, with lessons, a graded assignm
 | 3 | [Synchronous vs. Asynchronous Programming](sessions/03-sync-async/README.md) — feel the difference between blocking and non-blocking code with LEDs, buttons, and a reaction game | 3.5 h | ✅ Ready |
 | 4 | [Wi-Fi & the Internet of Things](sessions/04-wifi-iot/README.md) — connect to Wi-Fi, fetch and parse live JSON without freezing your program, and serve a web page *from* the board | 3.5 h | ✅ Ready |
 | 5 | [Sound & Light: PWM, Ringtones & NeoPixels](sessions/05-sound-and-light/README.md) — breathe LEDs, play Nokia-era ringtones on a piezo, run NeoPixel stage lighting — without ever blocking the program | 3.5 h | ✅ Ready |
-| 6 | *Coming soon* | 3.5 h | — |
+| 6 | [Capstone: Finish the Game](sessions/06-capstone/README.md) — drive a motor (transistor + flyback diode), then studio time: networking + haptics + a feature menu, shipped as a battery-powered device and demoed in a closing tournament | 3.5 h | ✅ Ready |
 
 ## Class infrastructure
 
@@ -21,7 +21,7 @@ Each session is self-contained in its own folder, with lessons, a graded assignm
 
 ## Shared hardware
 
-Every session uses the same bench: TinyPICO ESP32, breadboard, 2× LEDs + 330 Ω resistors, 2× momentary switches (blue + yellow caps), buzzer, jumper wires. Session 3's [wiring diagram](sessions/03-sync-async/diagrams/wiring.svg) is the reference build — later sessions reuse it as-is. Session 5 adds two parts to that build: a **passive piezo** (swaps into the buzzer's spot) and a **NeoPixel stick** (any length up to ~20 pixels — the session's code counts yours and adapts).
+Every session uses the same bench: TinyPICO ESP32, breadboard, 2× LEDs + 330 Ω resistors, 2× momentary switches (blue + yellow caps), buzzer, jumper wires. Session 3's [wiring diagram](sessions/03-sync-async/diagrams/wiring.svg) is the reference build — later sessions reuse it as-is. Session 5 adds two parts to that build: a **passive piezo** (swaps into the buzzer's spot) and a **NeoPixel stick** (any length up to ~20 pixels — the session's code counts yours and adapts). Session 6 adds the **vibration rig** — coin motor, screw terminal, 2N2222A transistor, 1N914 flyback diode, 1 kΩ resistor — plus a USB power bank.
 
 ## When something breaks
 

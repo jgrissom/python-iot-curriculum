@@ -36,16 +36,13 @@ Your reaction game has been running on a bare stage for two sessions. Tonight it
 
 Start from [`code/reaction_game_show_STARTER.py`](../code/reaction_game_show_STARTER.py) — or rig your own Session 3 game the same way if it plays flawlessly; grading is identical.
 
-*Why the Session 3 game, and not your connected Session 4 game?* Focus. The connected version is half again as much code — Wi-Fi connect, two network coroutines, fail-soft wrappers — and tonight's three TODOs are all sound and light; starting offline means every line you read is about the show. (Your connected game isn't wrong, it's just carrying last week's homework — and the **Back online** stretch goal below reunites the two.) The starter **runs as-is** (placeholder blink and beeps) and keeps running after each TODO — upgrade one, run it, move on. Board needs [`rtttl.py`](../code/rtttl.py) and [`songs.py`](../code/songs.py) uploaded, plus the usual `micropython_dotstar.py`.
+*Why the Session 3 game, and not your connected Session 4 game?* Focus. The connected version is half again as much code — Wi-Fi connect, two network coroutines, fail-soft wrappers — and tonight's three TODOs are all sound and light; starting offline means every line you read is about the show. (Your connected game isn't wrong, it's just carrying last week's homework — and Session 6's capstone reunites everything.) The starter **runs as-is** (placeholder blink and beeps) and keeps running after each TODO — upgrade one, run it, move on. Board needs [`rtttl.py`](../code/rtttl.py) and [`songs.py`](../code/songs.py) uploaded, plus the usual `micropython_dotstar.py`.
 
 Everything you need is already on the bench: the breath is Part A's coroutine plus a bail-out check, the shows are Part B's `create_task` move through the provided `start_show()` (read its comment — it exists because cancelling a task does *not* cancel tasks it started), and the lighting helpers are Part C's, shipped in the starter.
 
-## Stretch goals (extra credit)
+## Done early?
 
-- **Pitch-coded reaction time:** measure the win's reaction time with `time.ticks_diff()` (Session 3 stretch) and beep a note whose pitch rises as the time drops — a fast win should *sound* fast. (One octave per 100 ms saved is dramatic; `rtttl.note_freq()` is sitting right there.)
-- **Match point:** first player to 3 wins gets the full production — `CHARGE` fanfare plus a long-tailed comet in their color, and the score resets.
-- **Light-organ fanfare:** merge Part D — during the victory show, the strip dances to the fanfare's actual notes instead of running a canned comet.
-- **Back online:** graft Session 4's scoreboard reporting back in (`create_task` the POST, fail-soft) — your win hits the class leaderboard *while* the fanfare plays. Two sessions, one event loop, zero freezes.
+Polish what you have — smoothness of the breath, timing of the shows, taste in the comet — or explore [Part D, the light organ](../lessons/06-part-d-light-organ.md). There are no stretch goals tonight *on purpose*: next session is the **capstone**, where this game gets everything at once — its network back, a new sense, and a menu of extra-credit features that build on tonight's work.
 
 ---
 
