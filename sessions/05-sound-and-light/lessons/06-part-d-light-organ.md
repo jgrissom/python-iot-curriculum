@@ -102,10 +102,104 @@ The mapping: pitch → bar height, using the fact you proved in Part A — octav
    ```
 
 4. **Run it and watch a song or two.** Melodies have *shape*, and the bar makes it visible: scales climb the strip, octave jumps leap it, rests snap it dark. The shell prints each title as the setlist advances; Ctrl+C when you've had enough — the `finally` blocks leave the bench silent and dark.
-5. **Make it yours** (run after each experiment):
-   - Swap `bar_height` for a **position** mapping (one lit pixel per note, a bouncing dot).
-   - Color by pitch instead of height.
-   - Steal the jukebox's buttons so A skips songs while the painter never stops.
+5. **Make it yours** — three variations, easiest first; run after each. Try each one before opening its triangle.
+
+**The bouncing dot** — one lit pixel per note instead of a bar.
+
+<details>
+<summary>Answer — the bouncing dot</summary>
+
+Only `painter()` changes — the height math already tells you *where* the dot goes:
+
+```python
+async def painter():
+    """~50 fps: one dot, bouncing to the pitch."""
+    while True:
+        if state["freq"]:
+            pos = bar_height(state["freq"]) - 1     # 0-based pixel index
+            for i in range(NUM_PIXELS):
+                np[i] = (0, 40, 25) if i == pos else (0, 0, 0)
+        else:
+            for i in range(NUM_PIXELS):
+                np[i] = (0, 0, 0)
+        np.write()
+        await asyncio.sleep(0.02)
+```
+
+Notice `conductor()` didn't change at all — the whole point of meeting only at `state["freq"]`.
+
+</details>
+
+**Color by pitch** — the bar keeps its height, but *wears the note's color*: low notes green, high notes red.
+
+<details>
+<summary>Answer — color by pitch</summary>
+
+Add a pitch-to-color mapping (same three-octave span as `bar_height`), then paint the whole bar with it — this *replaces* the per-pixel `bar_color(i)` gradient:
+
+```python
+def pitch_color(freq):
+    """Low notes green, high notes red -- the bar's color IS the pitch."""
+    octaves_up = math.log(freq / 131, 2)
+    frac = max(0.0, min(1.0, octaves_up / 3))
+    return (round(60 * frac), round(60 * (1 - frac)), 0)
+
+
+async def painter():
+    """~50 fps: bar height AND color both follow the note."""
+    while True:
+        if state["freq"]:
+            height = bar_height(state["freq"])
+            color = pitch_color(state["freq"])
+        else:
+            height, color = 0, (0, 0, 0)
+        for i in range(NUM_PIXELS):
+            np[i] = color if i < height else (0, 0, 0)
+        np.write()
+        await asyncio.sleep(0.02)
+```
+
+Height and color now encode the same information two ways — redundant on purpose, like the green GO LED next to the green DotStar.
+
+</details>
+
+**The light-organ jukebox** — steal Part B's buttons: A skips songs, B stops, and the painter never misses a frame.
+
+<details>
+<summary>Answer — the light-organ jukebox</summary>
+
+Replace the setlist `main()` with a DJ loop. `conductor()` is already safe to cancel — its `finally` silences the piezo *and* zeroes `state["freq"]`, which is what makes the strip go dark instead of freezing mid-bar:
+
+```python
+async def dj():
+    btnA = Pin(18, Pin.IN, Pin.PULL_UP)        # blue cap: next song
+    btnB = Pin(5, Pin.IN, Pin.PULL_UP)         # yellow cap: silence!
+    song_task = None
+    idx = 0
+    print("Light-organ jukebox: A = next song, B = stop")
+    while True:
+        if btnA.value() == 0:
+            if song_task:
+                song_task.cancel()
+            song = songs.ALL[idx % len(songs.ALL)]
+            idx += 1
+            song_task = asyncio.create_task(conductor(song))
+            await asyncio.sleep(0.3)           # debounce
+        if btnB.value() == 0:
+            if song_task:
+                song_task.cancel()
+            await asyncio.sleep(0.3)
+        await asyncio.sleep(0.02)
+
+
+async def main():
+    asyncio.create_task(painter())
+    await dj()
+```
+
+Press A mid-song and watch closely: the sound stops, the bar collapses, the next song's bar starts — and the painter task never restarted, it just kept reading `state["freq"]` at 50 fps while the world changed around it.
+
+</details>
 
 > [!NOTE]
 > Notice what made this a ten-line trick instead of a rewrite: `parse()` never knew about pixels, `painter()` never knew about RTTTL — they meet only at `state["freq"]`. Two tasks *communicating through shared state* was Session 3's trickiest idea; tonight it's just how you build a light organ. And `await conductor(...)` in the setlist loop is a deliberate `await` of a slow thing — the rare case where "block this coroutine on the show" is exactly right, because a setlist *is* sequential. (The painter, on its own task, dances on regardless.)
