@@ -111,6 +111,8 @@ Twelve dictionary entries and one line of math generate the entire piano. When a
 
 Landmarks: `c4` is the piano's middle C · **`a4` = 440 Hz** is the anchor the whole grid hangs from · every column is exactly double the one before it · octave 7 (and the top of 6) sits in the piezo's loud 2–4 kHz resonance zone — transpose a song up an octave and it gets *louder*, not just higher. Handy when composing your own jingles for the assignment.
 
+Why only 4–7? That's the RTTTL spec's official octave range — Nokia picked the window where a phone's tiny speaker is actually audible, the same physics as your piezo. Our parser accepts any digit 0–9 and `note_freq()` computes them all correctly, but below octave 4 a piezo whispers and above 7 it's bat territory.
+
 </details>
 
 ## B3 — the parser
