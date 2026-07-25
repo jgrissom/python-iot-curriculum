@@ -34,7 +34,9 @@ Your reaction game has been running on a bare stage for two sessions. Tonight it
 
 ## Where to work
 
-Start from [`code/reaction_game_show_STARTER.py`](../code/reaction_game_show_STARTER.py) — or rig your own Session 3 game the same way if it plays flawlessly; grading is identical. The starter **runs as-is** (placeholder blink and beeps) and keeps running after each TODO — upgrade one, run it, move on. Board needs [`rtttl.py`](../code/rtttl.py) and [`songs.py`](../code/songs.py) uploaded, plus the usual `micropython_dotstar.py`.
+Start from [`code/reaction_game_show_STARTER.py`](../code/reaction_game_show_STARTER.py) — or rig your own Session 3 game the same way if it plays flawlessly; grading is identical.
+
+*Why the Session 3 game, and not your connected Session 4 game?* Focus. The connected version is half again as much code — Wi-Fi connect, two network coroutines, fail-soft wrappers — and tonight's three TODOs are all sound and light; starting offline means every line you read is about the show. (Your connected game isn't wrong, it's just carrying last week's homework — and the **Back online** stretch goal below reunites the two.) The starter **runs as-is** (placeholder blink and beeps) and keeps running after each TODO — upgrade one, run it, move on. Board needs [`rtttl.py`](../code/rtttl.py) and [`songs.py`](../code/songs.py) uploaded, plus the usual `micropython_dotstar.py`.
 
 Everything you need is already on the bench: the breath is Part A's coroutine plus a bail-out check, the shows are Part B's `create_task` move through the provided `start_show()` (read its comment — it exists because cancelling a task does *not* cancel tasks it started), and the lighting helpers are Part C's, shipped in the starter.
 
