@@ -129,7 +129,12 @@ a stretch goal reconnects it for those who want both.)
   (above flicker fusion) and obeys duty; the piezo obeys frequency and
   mostly shrugs at duty. Same signal, two transducers — that's the aha.
   The `level * level` gamma trick is kept (perceived brightness is
-  nonlinear; squaring an 8-bit level conveniently maxes at 65025 ≈ u16).
+  nonlinear; squaring an 8-bit level conveniently maxes at 65025 ≈ u16)
+  — but it is *asserted, not demonstrated*: a side-by-side
+  linear-vs-squared A/B experiment (briefly A2.1) was cut on 2026-07-25,
+  Jeff's call — the extra parameter and second code block would confuse
+  more than the comparison teaches. Don't reintroduce it; the one-line
+  explanation in A2's intro is the intended depth.
 - **Part B's blocking demo re-runs the curriculum's signature beat**: a
   `time.sleep()` player visibly freezes the breathing LED for a whole
   song before the async player un-freezes it. By Session 5 students
