@@ -113,8 +113,8 @@ Before you type: the piezo only *clicked* under plain `on()`. Predict what the m
 
 ## A4 — the rig test
 
-1. **Run [`code/rumble_test.py`](../code/rumble_test.py)** (download, open in Thonny, Run — nothing to upload). Expected show, in order: two plain on/off buzzes, a smooth ramp from whisper to full and back, then four **heartbeats** — lub-DUB, lub-DUB — soft thump, hard thump.
-2. **While it runs, rest the puck on your fingers** — haptics are meant to be *felt*. If the heartbeat pattern reads clearly, your game's new sense works.
+1. **Run [`code/rumble_test.py`](../code/rumble_test.py)** (download, open in Thonny, Run — nothing to upload). Expected show, in order: two plain on/off buzzes, a ramp that starts silent (the stall zone) then swells to full and back, then four **heartbeats** — lub-DUB, lub-DUB — a short thump and a long one, both full strength. The pattern lives in the *rhythm*, not the strength: during the game your fingers are on the buttons, so the game's haptics must carry with the puck just sitting on the bench.
+2. **Check it both ways:** with the puck resting on the bench you should *hear* the heartbeat rattle; lift it onto your fingers and you'll *feel* it. If both work, your game's new sense works.
 
 ## Discussion (5 min)
 

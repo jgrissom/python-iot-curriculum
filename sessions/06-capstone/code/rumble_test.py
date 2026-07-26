@@ -10,7 +10,9 @@
 #      a fifth of full duty -- the motor can't overcome its own
 #      friction; physics, not a fault), then it kicks in and swells
 #      to full and back down to a stall
-#   3. Heartbeat: lub-DUB, lub-DUB (soft thump, hard thump) x4
+#   3. Heartbeat: lub-DUB, lub-DUB (short thump, long thump) x4
+#      -- both at full strength, so it carries even with the puck
+#      resting on the bench (in the game, your fingers are busy)
 #
 # Silence at step 1 -> check the transistor legs (E-B-C, flat
 # face toward you) and that the motor's header is seated in the
@@ -53,9 +55,9 @@ def thump(strength, dur):
 
 
 for _ in range(4):
-    thump(34000, 0.10)     # lub  (soft -- must clear the stall floor)
+    thump(FULL, 0.07)      # lub  (short)
     time.sleep(0.10)
-    thump(FULL, 0.16)      # DUB  (hard)
+    thump(FULL, 0.22)      # DUB  (long)
     time.sleep(0.60)
 
 rumble.duty_u16(0)
