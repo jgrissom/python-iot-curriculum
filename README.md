@@ -21,7 +21,7 @@ Each session is self-contained in its own folder, with lessons, a graded assignm
 
 ## Shared hardware
 
-Every session uses the same bench: TinyPICO ESP32, breadboard, 2× LEDs + 330 Ω resistors, 2× momentary switches (blue + yellow caps), buzzer, jumper wires. Session 3's [wiring diagram](sessions/03-sync-async/diagrams/wiring.svg) is the reference build — later sessions reuse it as-is. Session 5 adds two parts to that build: a **passive piezo** (swaps into the buzzer's spot) and a **NeoPixel stick** (any length up to ~20 pixels — the session's code counts yours and adapts). Session 6 adds the **vibration rig** — coin motor on a pre-soldered header pigtail, a poker-chip "haptic puck" to mount it on, 2N2222A transistor, 1N914 flyback diode, 1 kΩ resistor — plus a USB power bank.
+Every session uses the same bench: TinyPICO ESP32, breadboard, 2× LEDs + 330 Ω resistors, 2× momentary switches (blue + yellow caps), buzzer, jumper wires. Session 3's [wiring diagram](sessions/03-sync-async/diagrams/wiring.svg) is the reference build — later sessions reuse it as-is. Session 5 adds two parts to that build: a **passive piezo** (swaps into the buzzer's spot) and a **NeoPixel stick** (any length up to ~20 pixels — the session's code counts yours and adapts). Session 6 adds the **vibration rig** — a pre-assembled "haptic puck" (coin motor on a poker chip with a header pigtail), 2N2222A transistor, 1N914 flyback diode, 1 kΩ resistor — plus a USB power bank.
 
 ## When something breaks
 
