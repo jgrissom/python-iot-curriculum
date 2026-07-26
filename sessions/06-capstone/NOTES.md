@@ -82,7 +82,13 @@ speeds all busy and all gradeable.
   fully assembled at prep** (Jeff, final call 2026-07-26): one
   pea-sized dab of hot glue on the chip, motor pressed in, leads
   swept into the dab's tail before it cools — anchor and strain
-  relief in one squeeze. The decision trail, for the record: tape was
+  relief in one squeeze. **Motor sits edge-biased, not centered**
+  (built that way 2026-07-26): the offset torques the chip so the far
+  edge swings harder (rocking amplification — more feel per mA),
+  fingers get bare chip to rest on, leads exit over the near edge,
+  and the rocking rattles louder on the bench. Keep the motor fully
+  on the chip — an overhang shrinks the glue contact right where
+  stress is highest. The decision trail, for the record: tape was
   considered (electrical tape flags and gums; Kapton is the tape-
   world answer), then inspection showed these motors ship with a
   **factory glue blob potting the lead solder joints**, briefly
