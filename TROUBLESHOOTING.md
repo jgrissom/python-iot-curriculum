@@ -174,13 +174,13 @@ The stick is powered from 5 V somewhere (so 3.3 V data is marginal — pixel 1 t
 Work backwards along the current's path:
 
 - **Transistor legs.** Flat face toward you, legs down: **E–B–C** left to right for the course's 2N2222A parts. Swapped legs don't damage anything — they just silently do nothing. Re-seat it deliberately. (Using your own transistor? Some TO-92 "2N2222" variants — notably the P2N2222A — are **reversed, C-B-E**; check the printed part number against its datasheet.)
-- **Tug-test the screw terminal.** Hair-thin motor leads slip out of clamps that *look* closed. Gentle pull on each wire; if it moves, re-strip, twist, fold the end double, re-clamp.
+- **Header seated where your jumpers think it is?** The motor's 2-pin header must share rows with the 3V3 jumper and the collector wire — off-by-one rows are the classic. Push it fully home; a half-seated header makes intermittent contact.
 - **Base resistor actually reaching the base row?** No base current, no switch.
 - Test the driver without the code: at the REPL, `Pin(14, Pin.OUT).on()` — buzz means the rig is fine and the problem is the program; silence means wiring.
 
 ### The motor got quieter over the evening (or cuts in and out)
 
-A vibration motor in a screw terminal is the textbook case of screws shaking loose. Re-snug both, tug-test again. Chronic loosener: a dab of hot glue over the clamped wires after tightening.
+Vibration is the great connection-tester. Re-seat the header (push it fully home), then wiggle the leads gently near both ends *while it runs* — a stutter localizes the fault. If the stutter is at the motor body or under the heat shrink, that's a joint giving up: swap the whole unit for a spare and hand the sick one to the instructor; don't nurse it through the evening.
 
 ### The motor runs but never turns off (or the transistor gets hot)
 

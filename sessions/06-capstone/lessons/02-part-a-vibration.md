@@ -13,21 +13,18 @@ New parts for this build:
 | Part | What it is |
 |---|---|
 | Coin vibration motor (10×3 mm, 3 V) | The muscle — phone-style ERM haptics |
-| Screw terminal block (2-pin, 2.54 mm) | Clamps the motor's hair-thin leads into the breadboard — no soldering |
+| — on a pre-soldered header pigtail | Leads soldered to a 2-pin header, joints heat-shrinked, every unit bench-tested before class — it plugs in like a jumper |
 | 2N2222A transistor (TO-92) | The switch: a trickle at the base gates a flood through the collector |
 | 1 kΩ resistor | Sets the trickle; protects the GPIO |
 | 1N914 diode | The flyback diode — does nothing until the exact microsecond it saves your transistor |
 
-## A1 — mount the motor (the fiddly bit first)
+## A1 — mount the motor (the easy bit first)
 
-**Wire with USB unplugged**, as always.
+**Wire with USB unplugged**, as always. Your motor arrives prepped: leads soldered to a 2-pin header, joints sleeved in heat shrink, and every unit tested before class — treat the wires gently and it'll outlive the course.
 
-1. **Stick the motor down.** Peel the adhesive ring and press the motor onto the breadboard's flat center trench area (or the bench right beside it). A loose coin motor doesn't vibrate anything — it just skitters around the desk. It rumbles *what it's stuck to*.
-2. **Tape the leads.** Run a short piece of tape over the two thin wires, pinning them to the breadboard. The #1 way these motors die is the leads tearing off the motor body — the tape makes the *taped span* flex instead of the solder points. Leave the last ~15 mm of each lead free.
-3. **Clamp the leads into the screw terminal** — the ritual matters, these wires are hair-thin:
-   - Twist each stripped end tight, then **fold it back on itself** (doubling fattens it so the screw actually bites).
-   - Insert, snug the screw firmly, then **tug-test**: a gentle pull on each wire. If it slips, redo it. Don't skip the tug — a clamp that *looks* closed and isn't will cost you twenty minutes tonight.
-4. **Plug the terminal block into the breadboard** across two rows. Those two rows are now "the motor" as far as wiring goes. (Either lead either way — vibration motors don't care about polarity.)
+1. **Stick the motor down.** Peel the adhesive ring and press the motor onto the breadboard's flat center area. A loose coin motor doesn't vibrate anything — it just skitters around the desk. It rumbles *what it's stuck to*.
+2. **Tape the leads.** Run a short piece of tape over the wires, pinning them to the breadboard mid-span. The #1 way these motors die is the leads tearing at the motor body — the tape makes the *taped span* flex instead of the motor's solder points.
+3. **Plug the header into two free breadboard rows.** Those two rows are now "the motor" as far as wiring goes. (Either orientation — vibration motors don't care about polarity.)
 
 ## A2 — build the driver
 

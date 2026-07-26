@@ -10,7 +10,8 @@
 #   3. Heartbeat: lub-DUB, lub-DUB (soft thump, hard thump) x4
 #
 # Silence at step 1 -> check the transistor legs (E-B-C, flat
-# face toward you) and the tug-test on the screw terminal.
+# face toward you) and that the motor's header is seated in the
+# rows your jumpers think it is.
 # See TROUBLESHOOTING.md for the full symptom list.
 #
 # Rig: motor 3V3<->collector, 1N914 band toward 3V3 across the

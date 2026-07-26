@@ -52,14 +52,23 @@ speeds all busy and all gradeable.
   bench test settles it in ten seconds. 1N914 ≡ 1N4148 (same die,
   older designation) as the flyback. Optional `104` ceramic across the
   motor terminals (already in kits from S3 Part D) for brush noise.
-- **Screw terminals instead of solder** (2-pin, 2.54 mm breadboard
-  pitch): kills 26 prep solder joints and makes dead-motor swaps a
-  30-second fix. The motor's 32 AWG leads demand the ritual taught in
-  Part A — twist, fold double, snug, **tug-test** — and the honest
-  caveat that a vibration motor is the pathological case for screws
-  walking loose ("motor got quieter → check the screws" is in
-  TROUBLESHOOTING). Leads still tear at the motor body: adhesive-mount
-  the motor and tape the leads down so flexing happens mid-span.
+- **Motors are prepped as soldered header pigtails** (decided
+  2026-07-26 after a screw-terminal detour): each motor's hair-thin
+  leads soldered to a 2-pin header, joints heat-shrinked, leads
+  twisted as a pair. **17 units built and 100% QC'd** (rail-buzz at
+  3V3 — test at operating voltage, not 5 V — plus a wiggle-while-
+  buzzing test to catch cold joints; passed units sharpie-dotted).
+  Rationale: screw terminals were the planned no-solder path, but
+  solder beat them on the one axis that matters for this part —
+  **vibration walks screws loose; solder doesn't** — and pre-built
+  pigtails reduce the student step to "stick down, tape, plug in."
+  For a future run without prep time: 2-pin 2.54 mm screw terminal
+  blocks do work — the ritual is twist the strands, fold the bare end
+  double, snug, then tug-test *and* twirl-test (a wire that rotates
+  freely is clamped on insulation) — with re-snugging expected over an
+  evening of vibration. Leads still tear at the motor body under
+  either scheme: adhesive-mount the motor and tape the leads down so
+  flexing happens mid-span.
 - **Motor pin is GPIO 14** — free, no boot role, and deliberately an
   ADC2 pin: the ADC2/Wi-Fi conflict only bites *inputs*, so spending an
   ADC2 pin on an output preserves 32/33 (ADC1) for future sensing.
