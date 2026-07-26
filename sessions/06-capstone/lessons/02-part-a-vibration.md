@@ -24,7 +24,7 @@ New parts for this build:
 
 1. **Stick the motor down.** Peel the adhesive ring and press the motor onto the breadboard's flat center area. A loose coin motor doesn't vibrate anything — it just skitters around the desk. It rumbles *what it's stuck to*.
 2. **Tape the leads.** Run a short piece of tape over the wires, pinning them to the breadboard mid-span. The #1 way these motors die is the leads tearing at the motor body — the tape makes the *taped span* flex instead of the motor's solder points.
-3. **Plug the header into two free breadboard rows.** Those two rows are now "the motor" as far as wiring goes. (Either orientation — vibration motors don't care about polarity.)
+3. **Plug the header into two free breadboard rows** and note which row got the **red** wire's pin — that's the motor's 3V3 side in the next step. (Electrically the motor has no polarity; red-to-3V3 is a class convention so every bench matches the diagram.)
 
 ## A2 — build the driver
 
@@ -38,13 +38,17 @@ The circuit — a **low-side switch**: the transistor sits between the motor and
                                           E (emitter) ── GND
 ```
 
+![Wiring diagram for the vibration rig: schematic on the left — motor and 1N914 flyback diode (band toward 3V3) between the 3V3 rail and the 2N2222A's collector, emitter to GND, GPIO 14 through a 1 kΩ resistor to the base; on the right, a breadboard row map — motor header in rows 1–2 (blue wire row 1, red wire row 2), red row jumpered to 3V3, diode spanning rows 1–2 with its band on the red row's side, row 3 left empty for elbow room, a gray jumper from the blue row down to the transistor's collector in row 4, transistor legs C/B/E in rows 4/5/6, resistor from row 5 to row 7, jumpers to GND and GPIO 14 — plus a TO-92 pinout inset](../diagrams/vibration_rig.svg)
+
+*Printable. The row map on the right matches the steps below — the row numbers are just names; any five free rows work.*
+
 1. **Plant the transistor** across three adjacent free rows. With the **flat face toward you, legs down**, the legs are **E – B – C, left to right** — *for the parts in tonight's kit*. (Say it out loud, check it twice — swapped legs is tonight's classic mistake, and it doesn't damage anything, it just mysteriously does nothing.)
 
 > [!WARNING]
 > **If you ever buy your own "2N2222":** TO-92 versions of this transistor ship in **two different pinouts** — the PN2222A is E-B-C as above, but the P2N2222A (same function, different manufacturer) is **reversed: C-B-E**. Check the exact part number printed on the package against its datasheet. Tonight's kit parts are verified; your future parts drawer is on its own.
 2. **Emitter row → GND rail.**
-3. **Motor row 1 → 3V3 rail.**
-4. **Motor row 2 → the collector row.**
+3. **The red-wire pin's row → 3V3 rail.**
+4. **The blue-wire pin's row → the collector row.**
 5. **The flyback diode goes *across the motor*:** one end into motor row 1 (the 3V3 side), the other into motor row 2. **The black band faces the 3V3 side.** This is the only polarized part in the build, and backwards it conducts whenever the motor is on — a short that cooks the diode. Band toward 3V3, always.
 6. **GPIO 14 → 1 kΩ → the base row.**
 
