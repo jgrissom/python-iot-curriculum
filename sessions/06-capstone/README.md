@@ -35,8 +35,7 @@ Something not working? → **[Troubleshooting & FAQ](../../TROUBLESHOOTING.md)**
 
 | Part | Purpose |
 |---|---|
-| 10×3 mm coin vibration motor (3 V ERM), on a pre-soldered header pigtail | The game's new sense: haptics — arrives as a tested plug-in unit |
-| Poker chip (the "haptic puck") | The motor's mount — light enough to actually shake; players feel the game through it |
+| The "haptic puck" (pre-assembled: coin vibration motor glued to a poker chip, leads embedded, header pigtail) | The game's new sense: haptics — a tested plug-in unit, light enough to actually shake |
 | NPN transistor (2N2222A) + 1 kΩ resistor | The switch that lets a 12 mA GPIO command an 80 mA motor |
 | 1N914 diode | The flyback diode — Session 3's long-promised lesson, finally paid |
 | USB power bank | Cuts the last cable: your game runs alone |

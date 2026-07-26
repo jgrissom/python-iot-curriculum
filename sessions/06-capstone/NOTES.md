@@ -61,7 +61,8 @@ speeds all busy and all gradeable.
   Rationale: screw terminals were the planned no-solder path, but
   solder beat them on the one axis that matters for this part —
   **vibration walks screws loose; solder doesn't** — and pre-built
-  pigtails reduce the student step to "stick down, tape, plug in."
+  pigtails (and later, the pre-assembled puck) reduce the student
+  step to "plug it in."
   For a future run without prep time: 2-pin 2.54 mm screw terminal
   blocks do work — the ritual is twist the strands, fold the bare end
   double, snug, then tug-test *and* twirl-test (a wire that rotates
@@ -77,11 +78,23 @@ speeds all busy and all gradeable.
   plate, the vibration is underwhelming — a coin ERM is designed to
   shake ~phone-mass, and a plate coupled to a desk swallows it.
   A light, rigid, free chip under a fingertip is the design-intent
-  environment (why phones buzz in hands, not on tables). Lead
-  tether-taping is offered as an optional tip, not a step (Jeff's
-  call 2026-07-26 — handle the puck by the chip, not the wires).
-  Don't "simplify" the puck away; the mass argument is in Part A's
-  step 1.
+  environment (why phones buzz in hands, not on tables). **Pucks are
+  fully assembled at prep** (Jeff, final call 2026-07-26): one
+  pea-sized dab of hot glue on the chip, motor pressed in, leads
+  swept into the dab's tail before it cools — anchor and strain
+  relief in one squeeze. The decision trail, for the record: tape was
+  considered (electrical tape flags and gums; Kapton is the tape-
+  world answer), then inspection showed these motors ship with a
+  **factory glue blob potting the lead solder joints**, briefly
+  making extra protection look redundant — glue was chosen anyway:
+  it's also the *mount*, rigid glue couples vibration to the chip
+  better than the foam adhesive ring, and the embedded span removes
+  the free-flapping wire that fatigues at the factory blob's edge.
+  Hot glue peels off a poker chip with a thumbnail if a motor needs
+  swapping. Students receive a finished component and just plug it
+  in; the one handling rule is taught in A1: by the chip, never by
+  the wires. Don't "simplify" the puck away; the mass
+  argument is in Part A's step 1.
 - **Coin ERMs have a start/stall floor around a fifth of full duty**
   (bench-found 2026-07-26 on the puck: 15000 = faint whisper, 12000 =
   dead silence — the motor never spins; static friction + the eccentric

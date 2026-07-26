@@ -12,9 +12,7 @@ New parts for this build:
 
 | Part | What it is |
 |---|---|
-| Coin vibration motor (10×3 mm, 3 V) | The muscle — phone-style ERM haptics |
-| — on a pre-soldered header pigtail | Leads soldered to a 2-pin header, joints heat-shrinked, every unit bench-tested before class — it plugs in like a jumper |
-| A poker chip (the "haptic puck") | What the motor sticks to — light enough to actually shake; you feel the game through it |
+| The "haptic puck" — pre-assembled | A coin vibration motor (10×3 mm, 3 V ERM) set in a dab of hot glue on a poker chip, leads embedded, soldered 2-pin header pigtail — bench-tested; plugs in like a jumper |
 | 2N2222A transistor (TO-92) | The switch: a trickle at the base gates a flood through the collector |
 | 1 kΩ resistor | Sets the trickle; protects the GPIO |
 | 1N914 diode | The flyback diode — does nothing until the exact microsecond it saves your transistor |
@@ -23,11 +21,8 @@ New parts for this build:
 
 **Wire with USB unplugged**, as always. Your motor arrives prepped: leads soldered to a 2-pin header, joints sleeved in heat shrink, and every unit tested before class — treat the wires gently and it'll outlive the course.
 
-1. **Stick the motor to your puck** — the poker chip in tonight's kit. Peel the adhesive ring, press it on. Why a chip and not the breadboard? Mass. A coin motor is built to shake a phone's worth of grams; stuck to a big board (or a bench plate), it's trying to shake the desk and you'll feel nothing. A few grams of free-floating chip under your fingertip is its natural habitat — this is also why your phone buzzes *in your hand* but barely on a table.
+1. **Meet your puck.** It arrives assembled: the motor set in a dab of hot glue on a poker chip, the first stretch of its leads embedded in the same dab, and a 2-pin header pigtail on the end. Why a chip and not the breadboard? Mass. A coin motor is built to shake a phone's worth of grams; stuck to a big board (or a bench plate), it's trying to shake the desk and you'd feel nothing. A few grams of free-floating chip is its natural habitat — this is also why your phone buzzes *in your hand* but barely on a table. (The glue matters too: the wires are the fragile part, and wire embedded in glue cannot flex or tear. **Handle the puck by the chip, never by its wires.**)
 2. **Plug the header into two free breadboard rows** and note which row got the **red** wire's pin — that's the motor's 3V3 side in the next step. (Electrically the motor has no polarity; red-to-3V3 is a class convention so every bench matches the diagram.)
-
-> [!TIP]
-> **Optional, but kind to the hardware:** a short piece of tape over the leads, pinning them to the breadboard near the header. The most common way these motors die is the leads tearing at the motor body; a taped span takes the flexing instead, and it keeps the puck from wandering farther than its leash. Skip it if you're gentle — just handle the puck by the chip, not by its wires.
 
 ## A2 — build the driver
 
