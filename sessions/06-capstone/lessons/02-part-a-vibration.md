@@ -24,8 +24,10 @@ New parts for this build:
 **Wire with USB unplugged**, as always. Your motor arrives prepped: leads soldered to a 2-pin header, joints sleeved in heat shrink, and every unit tested before class — treat the wires gently and it'll outlive the course.
 
 1. **Stick the motor to your puck** — the poker chip in tonight's kit. Peel the adhesive ring, press it on. Why a chip and not the breadboard? Mass. A coin motor is built to shake a phone's worth of grams; stuck to a big board (or a bench plate), it's trying to shake the desk and you'll feel nothing. A few grams of free-floating chip under your fingertip is its natural habitat — this is also why your phone buzzes *in your hand* but barely on a table.
-2. **Tether the leads.** Run a short piece of tape over the wires, pinning them to the breadboard near the header. The #1 way these motors die is the leads tearing at the motor body — the tape makes the *taped span* flex instead of the motor's solder points, and it keeps the puck from wandering farther than its leash.
-3. **Plug the header into two free breadboard rows** and note which row got the **red** wire's pin — that's the motor's 3V3 side in the next step. (Electrically the motor has no polarity; red-to-3V3 is a class convention so every bench matches the diagram.)
+2. **Plug the header into two free breadboard rows** and note which row got the **red** wire's pin — that's the motor's 3V3 side in the next step. (Electrically the motor has no polarity; red-to-3V3 is a class convention so every bench matches the diagram.)
+
+> [!TIP]
+> **Optional, but kind to the hardware:** a short piece of tape over the leads, pinning them to the breadboard near the header. The most common way these motors die is the leads tearing at the motor body; a taped span takes the flexing instead, and it keeps the puck from wandering farther than its leash. Skip it if you're gentle — just handle the puck by the chip, not by its wires.
 
 ## A2 — build the driver
 

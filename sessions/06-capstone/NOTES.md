@@ -77,9 +77,11 @@ speeds all busy and all gradeable.
   plate, the vibration is underwhelming — a coin ERM is designed to
   shake ~phone-mass, and a plate coupled to a desk swallows it.
   A light, rigid, free chip under a fingertip is the design-intent
-  environment (why phones buzz in hands, not on tables). Leads stay
-  tether-taped to the breadboard for strain relief. Don't "simplify"
-  the puck away; the mass argument is in Part A's step 1.
+  environment (why phones buzz in hands, not on tables). Lead
+  tether-taping is offered as an optional tip, not a step (Jeff's
+  call 2026-07-26 — handle the puck by the chip, not the wires).
+  Don't "simplify" the puck away; the mass argument is in Part A's
+  step 1.
 - **Coin ERMs have a start/stall floor around a fifth of full duty**
   (bench-found 2026-07-26 on the puck: 15000 = faint whisper, 12000 =
   dead silence — the motor never spins; static friction + the eccentric

@@ -189,7 +189,7 @@ Vibration is the great connection-tester. Re-seat the header (push it fully home
 
 ### The motor runs but the vibration is underwhelming
 
-Mass. A coin motor is built to shake a phone's worth of grams — stuck to a breadboard on a base plate, it's trying to shake the desk and losing. Mount it on the **puck** (the poker chip) with the leads tether-taped, and feel it with a fingertip *on the puck*. A loose, unstuck motor is the other extreme — it just dances on the desk. Small, rigid, free, and touching you: that's the recipe.
+Mass. A coin motor is built to shake a phone's worth of grams — stuck to a breadboard on a base plate, it's trying to shake the desk and losing. Mount it on the **puck** (the poker chip) and rest the puck *on* your fingers. A loose, unstuck motor is the other extreme — it just dances on the desk. Small, rigid, free, and touching you: that's the recipe.
 
 ### PWM at low duty does nothing at all
 
