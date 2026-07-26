@@ -43,6 +43,16 @@ The circuit — a **low-side switch**: the transistor sits between the motor and
 
 *Printable. The row map on the right matches the steps below — the row numbers are just names; any five free rows work.*
 
+### Why these three parts, in plain terms
+
+**The transistor is there so the pin doesn't have to do the heavy lifting.** A GPIO pin can safely supply about 12 mA; the motor wants about 80. Wire the motor straight to the pin and it might even seem to work — but you'd be forcing a microscopic switch inside the ESP32 to carry several times its rating. Pins abused like that don't spark or smoke; they quietly overheat, and one day that pin just stops working, forever. The transistor is a bigger, tougher switch that carries the 80 mA itself — the pin only has to *ask* it to close, which takes almost nothing.
+
+**The resistor decides how hard the pin asks.** The transistor's "ask me" input is nearly a short circuit to ground — connect the pin to it directly and the pin dumps everything it has into the request, running both parts hot. Same slow-cooking problem, different doorway. The 1 kΩ turns the request into a polite ~2.6 mA — more than enough to switch the transistor fully on, gentle enough to do it all night, every night.
+
+**The diode is there for the moment everything turns *off*.** A motor is a coil of wire, and current in a coil behaves like a flywheel — it refuses to stop instantly. Each time the transistor switches off, that leftover current has nowhere to go and piles up as a brief, vicious voltage spike aimed straight at the transistor. With the diode, the current takes one harmless lap around the motor and fades out. Without it, nothing fails *today* — the rig works! — but every switch-off lands another tiny hammer blow, and PWM swings that hammer 200 times a second. A rig without its diode is a rig that dies mysteriously next week. Cheap insurance, permanently on duty.
+
+The one-line summary: **the transistor does the work, the resistor keeps the request polite, and the diode cleans up after every shutdown.** All three protect the same thing — your board — from damage that wouldn't show up until later.
+
 1. **Plant the transistor** across three adjacent free rows. With the **flat face toward you, legs down**, the legs are **E – B – C, left to right** — *for the parts in tonight's kit*. (Say it out loud, check it twice — swapped legs is tonight's classic mistake, and it doesn't damage anything, it just mysteriously does nothing.)
 
 > [!WARNING]
