@@ -337,7 +337,19 @@ Finale: music on demand, from the buttons — and your first `task.cancel()`.
 8. **Run it and DJ for a while.** Press A mid-song — the old song stops *instantly*, the new one starts, the LED never misses a breath. That's the whole show-business API: `create_task()` starts a performance without waiting for it, `cancel()` pulls the performer off stage, and `finally` makes sure they don't leave a note stuck on behind them. The assignment is exactly these three moves wearing a game costume.
 
 > [!NOTE]
-> **Want more records?** The internet never stopped hosting these. The [PICAXE RTTTL archive](https://picaxe.com/rtttl-ringtones-for-tune-command/) has ~11,000 songs as plain text; [this searchable archive](https://ringtone.vulc.in/) lets you hunt by title and preview; and the timeless move is just searching `RTTTL` plus a song name. Paste any string into your `songs.py`-style constant and the jukebox plays it. One rule: what you paste onto *your* bench is your business — but our public `songs.py` stays public-domain-only, for reasons the header comment explains.
+> **Want more records?** The internet never stopped hosting these. The [PICAXE RTTTL archive](https://picaxe.com/rtttl-ringtones-for-tune-command/) has ~11,000 songs as plain text; [this searchable archive](https://ringtone.vulc.in/) lets you hunt by title and preview; and the timeless move is just searching `RTTTL` plus a song name. One rule: what you paste onto *your* bench is your business — but our public `songs.py` stays public-domain-only, for reasons the header comment explains.
+>
+> **Audition a find without touching any file** — paste it straight at the `>>>` (fresh prompt; Ctrl+F2 if a program was running):
+> ```
+> >>> from machine import Pin, PWM
+> >>> import uasyncio as asyncio
+> >>> import rtttl
+> >>> piezo = PWM(Pin(25), freq=440, duty_u16=0)
+> >>> def play(s): asyncio.run(rtttl.play(piezo, s))
+> ...
+> >>> play("scale:d=8,o=5,b=125:c,d,e,f,g,a,b,c6")   # paste any string here
+> ```
+> `asyncio.run()` holds the prompt until the song ends — at the REPL, waiting for the show is exactly right. Ctrl+C mid-song is safe (the `finally` you met above silences the note on the way out). Keepers graduate into your `songs.py` as constants; the rest were auditions.
 
 ## Discussion (5 min)
 
