@@ -69,7 +69,12 @@ That's the whole rig. Plug the USB back in.
 
 ## A3 — first rumble (and a surprise)
 
-**Nothing to create — this step happens at the `>>>` prompt.** Before you type: the piezo only *clicked* under plain `on()`. Predict what the motor does.
+**Nothing to create — this step happens at the `>>>` prompt.**
+
+> [!IMPORTANT]
+> **🖐️ Get your hand right first: rest the puck on your upturned fingers, like a waiter's tray.** Sitting freely on your fingertips it can shake; pressed down or left on the desk, it can't. This is the feeling position for everything in this part — if a step seems underwhelming, check your hand before your wiring.
+
+Before you type: the piezo only *clicked* under plain `on()`. Predict what the motor does.
 
 1. **Ask for everything:**
 
@@ -81,7 +86,7 @@ That's the whole rig. Plug the USB back in.
 
    **Full rumble.** Not a click — the real thing. A motor is a DC device: steady current means steady spinning, so unlike the piezo it doesn't need a waveform to work. So what's PWM *for* here?
 
-2. **Turn it off, switch to PWM, and find out.** For all of these, **rest the puck on your upturned fingers** — sitting on your fingertips it's freest to shake; pressing down on it squashes the very vibration you're trying to feel:
+2. **Turn it off, switch to PWM, and find out** (puck still riding on your fingers):
 
    ```
    >>> m.off()
