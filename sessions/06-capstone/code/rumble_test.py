@@ -3,10 +3,13 @@
 # Python IoT on the TinyPICO : Capstone
 #
 # Run this ONCE after building the vibration rig. Expected, in
-# order (pinch the breadboard rail lightly -- haptics are FELT):
+# order (rest the puck ON your fingers -- haptics are FELT):
 #
 #   1. Plain on/off: two half-second full-strength buzzes
-#   2. PWM: rumble ramps whisper -> full -> whisper
+#   2. PWM ramp: silence at first (below its stall floor -- roughly
+#      a fifth of full duty -- the motor can't overcome its own
+#      friction; physics, not a fault), then it kicks in and swells
+#      to full and back down to a stall
 #   3. Heartbeat: lub-DUB, lub-DUB (soft thump, hard thump) x4
 #
 # Silence at step 1 -> check the transistor legs (E-B-C, flat
@@ -32,7 +35,7 @@ for _ in range(2):
     m.off()
     time.sleep(0.4)
 
-print("[TEST] PWM -- rumble ramps whisper -> full -> whisper")
+print("[TEST] PWM ramp -- silent at first (stall zone), then swells")
 rumble = PWM(Pin(MOTOR_PIN), freq=200, duty_u16=0)
 for level in list(range(0, 256, 4)) + list(range(255, -1, -4)):
     rumble.duty_u16(level * 227)      # 255 * 227 = 57885, just under FULL
@@ -50,7 +53,7 @@ def thump(strength, dur):
 
 
 for _ in range(4):
-    thump(28000, 0.10)     # lub  (soft)
+    thump(34000, 0.10)     # lub  (soft -- must clear the stall floor)
     time.sleep(0.10)
     thump(FULL, 0.16)      # DUB  (hard)
     time.sleep(0.60)

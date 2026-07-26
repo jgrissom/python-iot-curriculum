@@ -72,6 +72,27 @@ speeds all busy and all gradeable.
 - **Motor pin is GPIO 14** — free, no boot role, and deliberately an
   ADC2 pin: the ADC2/Wi-Fi conflict only bites *inputs*, so spending an
   ADC2 pin on an output preserves 32/33 (ADC1) for future sensing.
+- **The motor mounts on a poker-chip "haptic puck," not the breadboard**
+  (bench-found 2026-07-26): stuck to a breadboard on an acrylic base
+  plate, the vibration is underwhelming — a coin ERM is designed to
+  shake ~phone-mass, and a plate coupled to a desk swallows it.
+  A light, rigid, free chip under a fingertip is the design-intent
+  environment (why phones buzz in hands, not on tables). Leads stay
+  tether-taped to the breadboard for strain relief. Don't "simplify"
+  the puck away; the mass argument is in Part A's step 1.
+- **Coin ERMs have a start/stall floor around a fifth of full duty**
+  (bench-found 2026-07-26 on the puck: 15000 = faint whisper, 12000 =
+  dead silence — the motor never spins; static friction + the eccentric
+  mass's inertia). A3 step 2 includes the 15000 whisper deliberately;
+  step 3 has students walk down from it and find their own floor.
+  Consequence taught with it: *dependable soft = short full-strength
+  pulse* (whisper-duty sits so close to the floor that unit variation
+  can silence it) — and haptic driver chips exist partly to "kick"
+  past this (overdrive then drop). Game cues use strength × duration
+  above the floor; the answer key warns graders about claimed-soft
+  cues below it. Feeling technique also matters and is taught: **rest
+  the puck ON upturned fingers** — pressing down on it damps the
+  vibration.
 - **`on()` full-rumbles the motor — the piezo contrast is taught.** A
   motor is a DC device: steady current = steady motion, so unlike the
   piezo it doesn't *need* PWM — PWM buys **intensity** control. This

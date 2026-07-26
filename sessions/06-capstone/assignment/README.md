@@ -12,7 +12,7 @@ Four sessions, one game. Tonight it gets finished: the network comes back, the r
 
 1. **Everything Session 5 built still works:** breathing beacon, green flood, victory and false-start shows, clean cancellation between rounds.
 2. **The network is back** — the [Session 4 grafts](../../04-wifi-iot/lessons/05-part-c-connected-game.md), re-applied to your Game-Show Edition: results POSTed fire-and-forget, standings fetched in the pause, leader flourish, fail-soft everywhere. Fair warning: the grafts were written for the *old* game, and your file has changed — the beacon is PWM now, `buzz()` became `beep()`, the referee's reset cancels shows. Tonight you're not following a recipe, you're **merging** — figuring out where each graft's *idea* lands in the code you have now. Budget real time for it; that's the skill.
-3. **The game has a sense of touch.** Rumble on at least **two distinct game moments** with **distinct intensities** — say, a soft tick at GO and a long harsh buzz on a false start, or heartbeats through the victory show. Cued through `start_show()` like every other performer, so round-reset silences it too.
+3. **The game has a sense of touch.** Rumble on at least **two distinct game moments** with **distinct feels** — say, a brief tap at GO and a long buzz on a false start, or heartbeats through the victory show. (Part A taught you the trick: near the stall floor these motors quit outright, so dependable "soft" is made from *short* full-strength pulses, not whisper-level duty.) Cued through `start_show()` like every other performer, so round-reset silences it too.
 4. **Two menu items** from below, working.
 5. **It ships:** saved as `main.py`, demoed on the power bank. No laptop on the demo table.
 
@@ -44,7 +44,7 @@ And two one-liners elsewhere: `rumble.duty_u16(0)` joins the referee's reset (a 
 | --- | ----------------------------------------------------------------------------------------------------------------------------------------- | --- |
 | 1   | Network restored onto the Game-Show Edition: results POSTed fire-and-forget, standings awaited in the pause, leader flourish — all correct on the live leaderboard | 20 |
 | 2   | **Fail-soft, on battery:** scoreboard stopped mid-demo → the game plays on, shows and all, no crash, no stall                              | 15 |
-| 3   | Haptics: ≥2 distinct moments, distinct intensities, cued via the show machinery, never blocking, silent between rounds                     | 20 |
+| 3   | Haptics: ≥2 distinct moments with distinct feels (strength × duration), cued via the show machinery, never blocking, silent between rounds  | 20 |
 | 4   | Session 5 polish intact: beacon breathes, GO kills it mid-breath, shows cancel to a clean stage                                            | 10 |
 | 5   | Ships: boots from `main.py` on the power bank into a fully playable game                                                                   | 15 |
 | 6   | Two menu items, demonstrated working                                                                                                       | 20 |

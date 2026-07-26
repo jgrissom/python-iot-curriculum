@@ -14,6 +14,7 @@ New parts for this build:
 |---|---|
 | Coin vibration motor (10×3 mm, 3 V) | The muscle — phone-style ERM haptics |
 | — on a pre-soldered header pigtail | Leads soldered to a 2-pin header, joints heat-shrinked, every unit bench-tested before class — it plugs in like a jumper |
+| A poker chip (the "haptic puck") | What the motor sticks to — light enough to actually shake; you feel the game through it |
 | 2N2222A transistor (TO-92) | The switch: a trickle at the base gates a flood through the collector |
 | 1 kΩ resistor | Sets the trickle; protects the GPIO |
 | 1N914 diode | The flyback diode — does nothing until the exact microsecond it saves your transistor |
@@ -22,8 +23,8 @@ New parts for this build:
 
 **Wire with USB unplugged**, as always. Your motor arrives prepped: leads soldered to a 2-pin header, joints sleeved in heat shrink, and every unit tested before class — treat the wires gently and it'll outlive the course.
 
-1. **Stick the motor down.** Peel the adhesive ring and press the motor onto the breadboard's flat center area. A loose coin motor doesn't vibrate anything — it just skitters around the desk. It rumbles *what it's stuck to*.
-2. **Tape the leads.** Run a short piece of tape over the wires, pinning them to the breadboard mid-span. The #1 way these motors die is the leads tearing at the motor body — the tape makes the *taped span* flex instead of the motor's solder points.
+1. **Stick the motor to your puck** — the poker chip in tonight's kit. Peel the adhesive ring, press it on. Why a chip and not the breadboard? Mass. A coin motor is built to shake a phone's worth of grams; stuck to a big board (or a bench plate), it's trying to shake the desk and you'll feel nothing. A few grams of free-floating chip under your fingertip is its natural habitat — this is also why your phone buzzes *in your hand* but barely on a table.
+2. **Tether the leads.** Run a short piece of tape over the wires, pinning them to the breadboard near the header. The #1 way these motors die is the leads tearing at the motor body — the tape makes the *taped span* flex instead of the motor's solder points, and it keeps the puck from wandering farther than its leash.
 3. **Plug the header into two free breadboard rows** and note which row got the **red** wire's pin — that's the motor's 3V3 side in the next step. (Electrically the motor has no polarity; red-to-3V3 is a class convention so every bench matches the diagram.)
 
 ## A2 — build the driver
@@ -68,21 +69,25 @@ That's the whole rig. Plug the USB back in.
 
    **Full rumble.** Not a click — the real thing. A motor is a DC device: steady current means steady spinning, so unlike the piezo it doesn't need a waveform to work. So what's PWM *for* here?
 
-2. **Turn it off, switch to PWM, and find out:**
+2. **Turn it off, switch to PWM, and find out.** For all of these, **rest the puck on your upturned fingers** — sitting on your fingertips it's freest to shake; pressing down on it squashes the very vibration you're trying to feel:
 
    ```
    >>> m.off()
    >>> rumble = PWM(Pin(14), freq=200, duty_u16=0)
    >>> rumble.duty_u16(58000)     # ~90% -- full strength
    >>> rumble.duty_u16(30000)     # medium buzz
-   >>> rumble.duty_u16(12000)     # a whisper you feel more than hear
+   >>> rumble.duty_u16(15000)     # a whisper -- barely there
    >>> rumble.duty_u16(0)         # off
    ```
 
-   Duty is **intensity**. The motor's inertia smooths 200 pulses a second into one continuous strength level — the same averaging your eye did for the LED, done by a spinning weight. And that completes the course's duty-cycle triptych: **duty = brightness on the LED, ≈ volume on the piezo, = strength on the motor.** Frequency, meanwhile, mattered only to the piezo — try `rumble.freq(500)` mid-buzz and the motor shrugs.
+   Duty is **intensity**. The motor's inertia smooths 200 pulses a second into one continuous strength level — the same averaging your eye did for the LED, done by a spinning weight. That completes the course's duty-cycle triptych: **duty = brightness on the LED, ≈ volume on the piezo, = strength on the motor.** Frequency, meanwhile, mattered only to the piezo — try `rumble.freq(500)` mid-buzz and the motor shrugs.
 
-3. **Why 58000 and not 65535?** The motor is rated 3 V; the rail is 3.3 V. Capping duty at ~90% makes the *average* land on spec — duty as a governor, not just a knob. Use 58000 as your ceiling tonight.
-4. **Release it:**
+3. **Now find the floor.** The whisper is nearly the bottom — step down from it, `13000`, `12000`, `11000`, until the motor stops. Not "gets quiet": *stops*. Unlike the LED (visible at 1% duty), a motor must overcome its own friction and the flywheel effect of its off-center weight before it can run at all, so somewhere around a fifth of full power it stalls outright (the exact floor varies motor to motor). Two consequences worth keeping:
+   - **A dependable "soft" haptic is a *short full-strength pulse*** — 40 ms at 58000 reads as a gentle tap on every motor; a whisper-level duty sits so close to the floor that unit-to-unit variation can silence it. Strength and *duration* are your two real knobs.
+   - Dedicated haptic-driver chips (your phone has one) handle this with a **kick**: full power for a few tens of ms to break friction, then drop to a low hum. Now you know why that chip exists.
+
+4. **Why 58000 and not 65535?** The motor is rated 3 V; the rail is 3.3 V. Capping duty at ~90% makes the *average* land on spec — duty as a governor, not just a knob. Use 58000 as your ceiling tonight.
+5. **Release it:**
 
    ```
    >>> rumble.duty_u16(0)
@@ -92,7 +97,7 @@ That's the whole rig. Plug the USB back in.
 ## A4 — the rig test
 
 1. **Run [`code/rumble_test.py`](../code/rumble_test.py)** (download, open in Thonny, Run — nothing to upload). Expected show, in order: two plain on/off buzzes, a smooth ramp from whisper to full and back, then four **heartbeats** — lub-DUB, lub-DUB — soft thump, hard thump.
-2. **While it runs, pinch the breadboard rail lightly** — haptics are meant to be *felt*. If the heartbeat pattern reads clearly through your fingertips, your game's new sense works.
+2. **While it runs, rest the puck on your fingers** — haptics are meant to be *felt*. If the heartbeat pattern reads clearly, your game's new sense works.
 
 ## Discussion (5 min)
 

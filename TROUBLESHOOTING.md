@@ -187,9 +187,13 @@ Vibration is the great connection-tester. Re-seat the header (push it fully home
 - Never off: the flyback diode is probably in **backwards** — band must face the 3V3 side. Installed reversed it conducts whenever the motor runs (and it may now be cooked — replace it, they're pennies).
 - Hot transistor with weak rumble: base resistor far too large (1 kΩ is right for the course's 2N2222A; if you've substituted a 2N3904, its gain sags at this current — use ≤470 Ω), or the transistor is being asked to drive something bigger than a coin motor.
 
-### The motor buzzes the desk but you can't feel it in the board
+### The motor runs but the vibration is underwhelming
 
-It's not stuck down. The adhesive ring must bond the motor to the breadboard (or bench) — a loose coin motor just dances. Stick it, tape the leads, retest.
+Mass. A coin motor is built to shake a phone's worth of grams — stuck to a breadboard on a base plate, it's trying to shake the desk and losing. Mount it on the **puck** (the poker chip) with the leads tether-taped, and feel it with a fingertip *on the puck*. A loose, unstuck motor is the other extreme — it just dances on the desk. Small, rigid, free, and touching you: that's the recipe.
+
+### PWM at low duty does nothing at all
+
+Correct — that's the motor, not your rig. Below its stall floor (roughly a fifth of full duty, varying motor to motor) a coin motor can't overcome its own friction and stops outright — on the course units ~15000 is a faint whisper and ~12000 is dead silence (Part A, step 3). Dependable soft cues are *short full-strength pulses*, not whisper-level duty.
 
 ### One lead tore off the motor body
 
