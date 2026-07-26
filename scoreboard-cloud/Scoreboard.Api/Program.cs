@@ -12,6 +12,7 @@
 //   GET  /scores           all benches + totals
 //   GET  /scores/{bench}   one bench
 //   GET  /reset?key=...    wipe scores (requires RESET_KEY config)
+//   POST /reset/{bench}    zero one bench (leaderboard button)
 //   /scalar                interactive API docs
 //   /app/                  React leaderboard (wwwroot/app)
 //   /classic/              original static leaderboard page
@@ -292,6 +293,30 @@ app.MapGet("/reset", (string? key, IConfiguration config) =>
                  "when a bench next appears.")
 .Produces<OkBody>()
 .Produces<ErrorBody>(StatusCodes.Status403Forbidden);
+
+// Keyless by design: this backs the leaderboard's per-bench reset button
+// (confirm dialog lives there). POST so prefetchers/crawlers can't trigger
+// it; only the destructive full wipe keeps the RESET_KEY gate.
+app.MapPost("/reset/{bench}", (string bench) =>
+{
+    using var conn = new SqliteConnection(connectionString);
+    conn.Open();
+    var zero = conn.CreateCommand();
+    zero.CommandText = "UPDATE scores SET wins = 0, false_starts = 0 WHERE bench = $bench";
+    zero.Parameters.AddWithValue("$bench", bench);
+    if (zero.ExecuteNonQuery() == 0)
+        return Results.Json(new ErrorBody($"unknown bench {bench}"), statusCode: 404);
+    Console.WriteLine($"  bench {bench} reset");
+    return Results.Json(new OkBody(true, $"bench {bench} reset"));
+})
+.WithSummary("Reset one bench's scores")
+.WithDescription("Zeroes the bench's wins and false starts in place, so it stays " +
+                 "on the leaderboard with its registered name. No key: the " +
+                 "leaderboard page calls this from its per-bench reset button " +
+                 "(with a confirm dialog); only the full /reset wipe is key-gated. " +
+                 "404 for a bench that has never reported.")
+.Produces<OkBody>()
+.Produces<ErrorBody>(StatusCodes.Status404NotFound);
 
 app.MapGet("/", () => Results.Redirect("/app/")).ExcludeFromDescription();
 

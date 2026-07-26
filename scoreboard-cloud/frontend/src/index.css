@@ -63,6 +63,21 @@ td.game {
   white-space: nowrap;
 }
 
+/* Quiet until hovered — the projector view shouldn't advertise it. */
+button.reset {
+  background: none;
+  border: none;
+  color: #555;
+  font-size: 1em;
+  line-height: 1;
+  padding: 0.1em 0.3em;
+  cursor: pointer;
+}
+
+button.reset:hover {
+  color: #f66;
+}
+
 .note {
   color: #777;
   margin-top: 2em;

@@ -42,6 +42,19 @@ function celebrate(deltas: { Blue: number; Yellow: number }) {
   }
 }
 
+// Keyless on purpose (classroom, one shared projector page); the confirm
+// dialog is the whole safety net. The next poll repaints the zeroed row,
+// so no local state to update here.
+async function resetBench(bench: string, label: string) {
+  if (!window.confirm(`Reset scores for ${label}? Wins and false starts go back to 0.`))
+    return
+  try {
+    await fetch(`/reset/${encodeURIComponent(bench)}`, { method: 'POST' })
+  } catch {
+    // Server unreachable — the stale banner already covers this.
+  }
+}
+
 export default function App() {
   const [scores, setScores] = useState<Scores | null>(null)
   const [stale, setStale] = useState(false)
@@ -112,27 +125,38 @@ export default function App() {
             <th className="blue">false starts</th>
             <th className="yellow">Yellow wins</th>
             <th className="yellow">false starts</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {!scores ? (
             <tr>
-              <td colSpan={5}>Waiting for first update…</td>
+              <td colSpan={6}>Waiting for first update…</td>
             </tr>
           ) : benchNames.length === 0 ? (
             <tr>
-              <td colSpan={5}>No rounds reported yet…</td>
+              <td colSpan={6}>No rounds reported yet…</td>
             </tr>
           ) : (
             benchNames.map((b) => {
+              const label = scores.names?.[b] ?? `Bench ${b}`
               const e = scores.benches[b]
               return (
                 <tr key={b}>
-                  <td className="game">{scores.names?.[b] ?? `Bench ${b}`}</td>
+                  <td className="game">{label}</td>
                   <td>{e.Blue.wins}</td>
                   <td>{e.Blue.false_starts}</td>
                   <td>{e.Yellow.wins}</td>
                   <td>{e.Yellow.false_starts}</td>
+                  <td>
+                    <button
+                      className="reset"
+                      title={`Reset ${label}`}
+                      onClick={() => resetBench(b, label)}
+                    >
+                      ↺
+                    </button>
+                  </td>
                 </tr>
               )
             })

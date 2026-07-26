@@ -16,6 +16,7 @@ export default defineConfig({
     proxy: {
       '/scores': 'http://localhost:5080',
       '/result': 'http://localhost:5080',
+      '/reset': 'http://localhost:5080',
     },
   },
 })
